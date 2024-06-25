@@ -4,13 +4,19 @@
   
     
     <entry>
-      <title></title>
+      <title>VSCode中运行C代码没有Terminal</title>
       <link href="/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal/"/>
       <url>/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal/</url>
       
         <content type="html"><![CDATA[<p>插件页面选择Code Runner插件，进去插件设置</p><p>搜索并勾选Run In Terminal</p><p>![image-20240625234728550](&#x2F;Users&#x2F;gorwaywong&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20240625234728550.png)</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 解决办法 </tag>
+            
+        </tags>
       
     </entry>
     
