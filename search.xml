@@ -8,7 +8,7 @@
       <link href="/2024/08/06/PL-0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE/"/>
       <url>/2024/08/06/PL-0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE/</url>
       
-        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote><p><em>PL</em>&#x2F;<em>0语言</em>可以看成PASCAL语言的子集,它的编译程序是由C语言编写的编译解释执行系统。PL&#x2F;0能充分展示高级<em>语言</em>的最基本成分。</p></blockquote><p>拓展了pl0语言的基础功能（浮点数实现、出错处理、实现整型数组以及格式化输入输出），增加了整型数组求和、平均值、最大最小值系统函数，基于VSCode插件来实现代码补全和自动高亮。</p><h1 id="PL-0功能扩展实现"><a href="#PL-0功能扩展实现" class="headerlink" title="PL&#x2F;0功能扩展实现"></a>PL&#x2F;0功能扩展实现</h1><h2 id="I-O功能拓展-格式化输入-输出"><a href="#I-O功能拓展-格式化输入-输出" class="headerlink" title="I&#x2F;O功能拓展 格式化输入&#x2F;输出"></a>I&#x2F;O功能拓展 格式化输入&#x2F;输出</h2><p>在编译器源文件中添加以下新拓展：</p><p>其中 printfsym 代表格式化输出，scanfsym 代表格式化输入。</p><p><a href="/images/pl0_3.png"></a></p><p><a href="/images/pl0_4.png"></a></p><p><a href="/images/pl0_5.png"></a></p><p>​保留字符号及名字均按照字母表顺序进行排列。</p><pre><code> 其中printf是格式化输出符号，scanf是格式化输入符号；同时没有删除pl0本来的输入输出函数write和read，是因为一些情况下用这些更方便。</code></pre><p>​设置printfsym以及scanfsym为语句的开始符号。</p><p>​在statement函数中添加对printf语句以及scanfsym语句的处理。二者的基本代码与write、read结构类似，就是多了对’d’以及’f’的处理，遇见d时以整型进行输入输出，而f则是浮点型。相对而言，scanf的处理更加复杂，由于浮点类型的读入与整型类型的读入存在区别，而原本的opr指令中只支持对整型的处理，所以我增加了一条新的指令(opr  0 17 0)，与(opr 0 16 0)相互配合处理不同的类型输入。</p><p>​同时将原来的整型数据栈s改成了float类型，整型浮点型都用这个栈进行操作。</p><p><a href="/images/pl0_6.png"></a></p><h1 id="基于VSCode实现PL-0支持插件"><a href="#基于VSCode实现PL-0支持插件" class="headerlink" title="基于VSCode实现PL&#x2F;0支持插件"></a>基于VSCode实现PL&#x2F;0支持插件</h1><h5 id="效果："><a href="#效果：" class="headerlink" title="效果："></a>效果：</h5><p><a href="/images/pl0_1.png"></a></p><p>对于特定后缀的文件.plg，通过编写自定义的vscode插件实现了关键字、标识符、以及其他符号的高亮。</p><p>同时，该vscode插件还可以实现自动补全（对于.plg文件），以下是效果图一览：</p><p><a href="/images/pl0_2.png"></a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote><p><em>PL</em>&#x2F;<em>0语言</em>可以看成PASCAL语言的子集,它的编译程序是由C语言编写的编译解释执行系统。PL&#x2F;0能充分展示高级<em>语言</em>的最基本成分。</p></blockquote><p>拓展了pl0语言的基础功能（浮点数实现、出错处理、实现整型数组以及格式化输入输出），增加了整型数组求和、平均值、最大最小值系统函数，基于VSCode插件来实现代码补全和自动高亮。</p><h1 id="PL-0功能扩展实现"><a href="#PL-0功能扩展实现" class="headerlink" title="PL&#x2F;0功能扩展实现"></a>PL&#x2F;0功能扩展实现</h1><h2 id="I-O功能拓展-格式化输入-输出"><a href="#I-O功能拓展-格式化输入-输出" class="headerlink" title="I&#x2F;O功能拓展 格式化输入&#x2F;输出"></a>I&#x2F;O功能拓展 格式化输入&#x2F;输出</h2><p>在编译器源文件中添加以下新拓展：</p><p>其中 printfsym 代表格式化输出，scanfsym 代表格式化输入。</p><p><img src="/images/pl0_3.png"></p><p><img src="/images/pl0_4.png"></p><p><img src="/images/pl0_5.png"></p><p>保留字符号及名字均按照字母表顺序进行排列。</p><p>其中printf是格式化输出符号，scanf是格式化输入符号；同时没有删除pl0本来的输入输出函数write和read，是因为一些情况下用这些更方便。</p><p>设置printfsym以及scanfsym为语句的开始符号。</p><p>在statement函数中添加对printf语句以及scanfsym语句的处理。二者的基本代码与write、read结构类似，就是多了对’d’以及’f’的处理，遇见d时以整型进行输入输出，而f则是浮点型。相对而言，scanf的处理更加复杂，由于浮点类型的读入与整型类型的读入存在区别，而原本的opr指令中只支持对整型的处理，所以我增加了一条新的指令(opr  0 17 0)，与(opr 0 16 0)相互配合处理不同的类型输入。</p><p>同时将原来的整型数据栈s改成了float类型，整型浮点型都用这个栈进行操作。</p><p><img src="/images/pl0_6.png"></p><h1 id="基于VSCode实现PL-0支持插件"><a href="#基于VSCode实现PL-0支持插件" class="headerlink" title="基于VSCode实现PL&#x2F;0支持插件"></a>基于VSCode实现PL&#x2F;0支持插件</h1><h5 id="效果："><a href="#效果：" class="headerlink" title="效果："></a>效果：</h5><p><img src="/images/pl0_1.png"></p><p>对于特定后缀的文件.plg，通过编写自定义的vscode插件实现了关键字、标识符、以及其他符号的高亮。</p><p>同时，该vscode插件还可以实现自动补全（对于.plg文件），以下是效果图一览：</p><p><img src="/images/pl0_2.png"></p>]]></content>
       
       
       
@@ -37,10 +37,10 @@
     
     <entry>
       <title>hexo文章中上传本地图片问题</title>
-      <link href="/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal_%E5%89%AF%E6%9C%AC/"/>
-      <url>/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal_%E5%89%AF%E6%9C%AC/</url>
+      <link href="/2024/06/25/hexo%E6%96%87%E7%AB%A0%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/"/>
+      <url>/2024/06/25/hexo%E6%96%87%E7%AB%A0%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/</url>
       
-        <content type="html"><![CDATA[<p>hexo博客的默认根目录是source，所以：</p><p>source中的images文件夹中的图片，可以<code>[](/images/xxx.png)</code>格式引用（markdown格式）</p>]]></content>
+        <content type="html"><![CDATA[<p>hexo博客的默认根目录是source，所以：</p><p>source中的images文件夹中的图片，可以<code>![](/images/xxx.png)</code>格式引用（markdown格式）</p>]]></content>
       
       
       
