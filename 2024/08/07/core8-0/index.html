@@ -15,7 +15,7 @@
   
   <title>
     
-      archive_a: 2024 
+      macOS卸载.net core 8.0 
       
       
       |
@@ -110,68 +110,146 @@
 
 
       <div class="flex-container">
-        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<!-- last: 按年份把文章分组，当前遍历到的年份 -->
-<!-- now: 当前遍历到的文章的发布年份 -->
 
-<div class="container archives">
-  <div class="post-list">
-    
-        <!-- 后续文章的发布年份呈现 -->
-        <div class="content-title">
-          <h2>
-            <span>2024</span>
-          </h2>
+  <!-- LaTex Display -->
+
+  
+    <script async type="text/javascript" src="/plugins/mathjax/tex-chtml.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    }
+  </script>
+
+
+
+
+
+  <!-- clipboard -->
+
+  
+    <script async type="text/javascript" src="/plugins/clipboard.min.js"></script>
+  
+  
+<script src="/js/codeCopy.js"></script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">macOS卸载.net core 8.0</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+          2024-08-07 00:29:36
+        </span>
+        
+              <span class="post-tags">
+                <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                
+                <span class="span--tag mr-8">
+                  <a href="/tags/%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="解决办法">
+                    #解决办法
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <p>用官方的卸载工具：</p>
+<p><strong>说明页面</strong></p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/core/additional-tools/uninstall-tool?tabs=macos">https://learn.microsoft.com/zh-cn/dotnet/core/additional-tools/uninstall-tool?tabs=macos</a></p>
+<p><strong>源代码页面</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/dotnet/cli-lab">https://github.com/dotnet/cli-lab</a></p>
+<p><strong>下载页面</strong></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/dotnet/cli-lab/releases/tag/1.7.521001">https://github.com/dotnet/cli-lab/releases/tag/1.7.521001</a></p>
+<p>下载<code>dotnet-core-uninstall.tar</code>并解压缩到文件夹中，比如<code>temp</code></p>
+<p>打开终端，导航到该文件夹</p>
+<p>执行：</p>
+<p><code>./dotnet-core-uninstall -h</code>查看该工具所有命令</p>
+<p><code>./dotnet-core-uninstall list</code>查看安装的所有.net版本</p>
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xxx@MacBook-Pro temp % ./dotnet-core-uninstall list</span><br><span class="line"></span><br><span class="line">This tool cannot uninstall versions of the runtime or SDK that are installed using zip/scripts. The versions that can be uninstalled with this tool are:</span><br><span class="line"></span><br><span class="line">.NET Core SDKs:</span><br><span class="line">  8.0.202  (arm64)  [Used by Visual Studio <span class="keyword">for</span> Mac. Specify individually or use —-force to remove]</span><br><span class="line"></span><br><span class="line">.NET Core Runtimes:</span><br><span class="line">  8.0.3  (arm64)  [Used by Visual Studio <span class="keyword">for</span> Mac or SDKs. Specify individually or use —-force to remove]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后执行</p>
+<p><code>./dotnet-core-uninstall dry-run 8.0.3 --runtime</code></p>
+<p><code>./dotnet-core-uninstall dry-run 8.0.202 --sdk</code></p>
+<p>进行试运行,版本号要和<code>list</code>输出的一致</p>
+<p>提示可以删除的话，执行以下删除命令，版本号依旧要一致：</p>
+<p>前面加sudo获取最大权限</p>
+<p><code>sudo ./dotnet-core-uninstall remove 8.0.202 --sdk</code></p>
+<p><code>sudo ./dotnet-core-uninstall remove 8.0.3 --runtime</code></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2024/08/06/PL-0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
+              2024-08-07 00:29:36
+            </span>
+            
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
+                    
+                    <span class="span--tag mr-8">
+                      <a href="/tags/%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="解决办法">
+                        #解决办法
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
         </div>
       
-      <div class="post-item" title="macOS卸载.net core 8.0">
-        <div class="time-m-d">08-07</div>
-        <div class="title">
-          <a href="/2024/08/07/core8-0/">
-            <span>macOS卸载.net core 8.0</span>
-          </a>
-        </div>
-      </div>
+    </div>
     
-      <div class="post-item" title="PL/0功能拓展及基于VSCode的IDE配置">
-        <div class="time-m-d">08-06</div>
-        <div class="title">
-          <a href="/2024/08/06/PL-0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE/">
-            <span>PL/0功能拓展及基于VSCode的IDE配置</span>
-          </a>
-        </div>
-      </div>
+
     
-      <div class="post-item" title="VSCode中运行C代码没有Terminal">
-        <div class="time-m-d">06-25</div>
-        <div class="title">
-          <a href="/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal/">
-            <span>VSCode中运行C代码没有Terminal</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="hexo文章中上传本地图片问题">
-        <div class="time-m-d">06-25</div>
-        <div class="title">
-          <a href="/2024/06/25/hexo%E6%96%87%E7%AB%A0%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E9%97%AE%E9%A2%98/">
-            <span>hexo文章中上传本地图片问题</span>
-          </a>
-        </div>
-      </div>
-    
-      <div class="post-item" title="Hello World">
-        <div class="time-m-d">06-24</div>
-        <div class="title">
-          <a href="/2024/06/24/hello-world/">
-            <span>Hello World</span>
-          </a>
-        </div>
+      <div class="comments-container">
+        
+
+
+
+
+
+
+
       </div>
     
   </div>
-</div>
+
 
         
 <div class="footer">
@@ -436,6 +514,24 @@
 
 
         
+  
+    <div class="share-icon tools-bar-item">
+      <a href="javascript: void(0)" id="share-icon">
+        <i class="iconfont iconshare"></i>
+      </a>
+      <div class="share-content hidden">
+        
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + macOS%E5%8D%B8%E8%BD%BD.net%20core%208.0 + '&url=' + http%3A%2F%2Fgorwaywong.github.io%2F2024%2F08%2F07%2Fcore8-0%2F + '" target="_blank" title="Twitter">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        
+        
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://gorwaywong.github.io/2024/08/07/core8-0/" target="_blank" title="Facebook">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        
+      </div>
+    </div>
   
   
 <script src="/js/shares.js"></script>
