@@ -15,7 +15,7 @@
   
   <title>
     
-      VSCode中运行C代码没有Terminal 
+      PL/0功能拓展及基于VSCode的IDE配置 
       
       
       |
@@ -155,36 +155,42 @@
   <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
   <div class="container post-details" id="post-details">
     <div class="post-content">
-      <div class="post-title">VSCode中运行C代码没有Terminal</div>
+      <div class="post-title">PL/0功能拓展及基于VSCode的IDE配置</div>
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-          2024-06-26 00:06:22
+          2024-08-06 23:19:25
         </span>
         
-              <span class="post-tags">
-                <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                
-                <span class="span--tag mr-8">
-                  <a href="/tags/%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="解决办法">
-                    #解决办法
-                  </a>
-                </span>
-                
-              </span>
-          
       </div>
       <div class="markdown-body">
-        <p>插件页面选择Code Runner插件，进去插件设置</p>
-<p>搜索并勾选Run In Terminal</p>
-<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSI0IiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgaWQ9InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAiIGF0dHJpYnV0ZU5hbWU9InIiIGJlZ2luPSIwO3N2Z1NwaW5uZXJzM0RvdHNTY2FsZTEuZW5kLTAuMjVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjMiIGZpbGw9ImN1cnJlbnRDb2xvciI+PGFuaW1hdGUgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNnMiIGR1cj0iMC43NXMiIHZhbHVlcz0iMzsuMjszIi8+PC9jaXJjbGU+PGNpcmNsZSBjeD0iMjAiIGN5PSIxMiIgcj0iMyIgZmlsbD0iY3VycmVudENvbG9yIj48YW5pbWF0ZSBpZD0ic3ZnU3Bpbm5lcnMzRG90c1NjYWxlMSIgYXR0cmlidXRlTmFtZT0iciIgYmVnaW49InN2Z1NwaW5uZXJzM0RvdHNTY2FsZTAuZW5kLTAuNDVzIiBkdXI9IjAuNzVzIiB2YWx1ZXM9IjM7LjI7MyIvPjwvY2lyY2xlPjwvc3ZnPg==" data-original="/images/image-20240625234728550.png"></p>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><blockquote>
+<p><em>PL</em>&#x2F;<em>0语言</em>可以看成PASCAL语言的子集,它的编译程序是由C语言编写的编译解释执行系统。PL&#x2F;0能充分展示高级<em>语言</em>的最基本成分。</p>
+</blockquote>
+<p>拓展了pl0语言的基础功能（浮点数实现、出错处理、实现整型数组以及格式化输入输出），增加了整型数组求和、平均值、最大最小值系统函数，基于VSCode插件来实现代码补全和自动高亮。</p>
+<h1 id="PL-0功能扩展实现"><a href="#PL-0功能扩展实现" class="headerlink" title="PL&#x2F;0功能扩展实现"></a>PL&#x2F;0功能扩展实现</h1><h2 id="I-O功能拓展-格式化输入-输出"><a href="#I-O功能拓展-格式化输入-输出" class="headerlink" title="I&#x2F;O功能拓展 格式化输入&#x2F;输出"></a>I&#x2F;O功能拓展 格式化输入&#x2F;输出</h2><p>在编译器源文件中添加以下新拓展：</p>
+<p>其中 printfsym 代表格式化输出，scanfsym 代表格式化输入。</p>
+<p><a href="/images/pl0_3.png"></a></p>
+<p><a href="/images/pl0_4.png"></a></p>
+<p><a href="/images/pl0_5.png"></a></p>
+<p>​	保留字符号及名字均按照字母表顺序进行排列。</p>
+<pre><code> 其中printf是格式化输出符号，scanf是格式化输入符号；同时没有删除pl0本来的输入输出函数write和read，是因为一些情况下用这些更方便。
+</code></pre>
+<p>​	设置printfsym以及scanfsym为语句的开始符号。</p>
+<p>​	在statement函数中添加对printf语句以及scanfsym语句的处理。二者的基本代码与write、read结构类似，就是多了对’d’以及’f’的处理，遇见d时以整型进行输入输出，而f则是浮点型。相对而言，scanf的处理更加复杂，由于浮点类型的读入与整型类型的读入存在区别，而原本的opr指令中只支持对整型的处理，所以我增加了一条新的指令(opr  0 17 0)，与(opr 0 16 0)相互配合处理不同的类型输入。</p>
+<p>​	同时将原来的整型数据栈s改成了float类型，整型浮点型都用这个栈进行操作。</p>
+<p><a href="/images/pl0_6.png"></a></p>
+<h1 id="基于VSCode实现PL-0支持插件"><a href="#基于VSCode实现PL-0支持插件" class="headerlink" title="基于VSCode实现PL&#x2F;0支持插件"></a>基于VSCode实现PL&#x2F;0支持插件</h1><h5 id="效果："><a href="#效果：" class="headerlink" title="效果："></a>效果：</h5><p><a href="/images/pl0_1.png"></a></p>
+<p>对于特定后缀的文件.plg，通过编写自定义的vscode插件实现了关键字、标识符、以及其他符号的高亮。</p>
+<p>同时，该vscode插件还可以实现自动补全（对于.plg文件），以下是效果图一览：</p>
+<p><a href="/images/pl0_2.png"></a></p>
 
       </div>
       
         <div class="prev-or-next">
           <div class="post-foot-next">
             
-              <a href="/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal_%E5%89%AF%E6%9C%AC/" target="_self">
+              <a href="/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal/" target="_self">
                 <i class="iconfont icon-chevronleft"></i>
                 <span>Prev</span>
               </a>
@@ -193,33 +199,34 @@
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime mr-10" title="Update time"></i>
-              2024-06-26 00:06:22
+              2024-08-06 23:19:25
             </span>
             
-                  <span class="post-tags">
-                    <i class="iconfont icon-tags mr-10" title="Tags"></i>
-                    
-                    <span class="span--tag mr-8">
-                      <a href="/tags/%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="解决办法">
-                        #解决办法
-                      </a>
-                    </span>
-                    
-                  </span>
-              
           </div>
           <div class="post-foot-prev">
-            
-              <a href="/2024/08/06/PL-0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE/" target="_self">
-                <span>Next</span>
-                <i class="iconfont icon-chevronright"></i>
-              </a>
             
           </div>
         </div>
       
     </div>
     
+  <div id="btn-catalog" class="btn-catalog">
+    <i class="iconfont icon-catalog"></i>
+  </div>
+  <div class="post-catalog hidden" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PL-0%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95%E5%AE%9E%E7%8E%B0"><span class="toc-text">PL&#x2F;0功能扩展实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95-%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA"><span class="toc-text">I&#x2F;O功能拓展 格式化输入&#x2F;输出</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EVSCode%E5%AE%9E%E7%8E%B0PL-0%E6%94%AF%E6%8C%81%E6%8F%92%E4%BB%B6"><span class="toc-text">基于VSCode实现PL&#x2F;0支持插件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%EF%BC%9A"><span class="toc-text">效果：</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+      
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
 
     
       <div class="comments-container">
@@ -506,12 +513,12 @@
       </a>
       <div class="share-content hidden">
         
-          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal + '&url=' + http%3A%2F%2Fgorwaywong.github.io%2F2024%2F06%2F25%2FVSCode%25E4%25B8%25AD%25E8%25BF%2590%25E8%25A1%258CC%25E4%25BB%25A3%25E7%25A0%2581%25E6%25B2%25A1%25E6%259C%2589Terminal%2F + '" target="_blank" title="Twitter">
+          <a class="share-item" href="https://twitter.com/intent/tweet?text=' + PL%2F0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE + '&url=' + http%3A%2F%2Fgorwaywong.github.io%2F2024%2F08%2F06%2FPL-0%25E5%258A%259F%25E8%2583%25BD%25E6%258B%2593%25E5%25B1%2595%25E5%258F%258A%25E5%259F%25BA%25E4%25BA%258EVSCode%25E7%259A%2584IDE%25E9%2585%258D%25E7%25BD%25AE%2F + '" target="_blank" title="Twitter">
             <i class="iconfont icon-twitter"></i>
           </a>
         
         
-          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://gorwaywong.github.io/2024/06/25/VSCode%E4%B8%AD%E8%BF%90%E8%A1%8CC%E4%BB%A3%E7%A0%81%E6%B2%A1%E6%9C%89Terminal/" target="_blank" title="Facebook">
+          <a class="share-item" href="https://www.facebook.com/sharer.php?u=http://gorwaywong.github.io/2024/08/06/PL-0%E5%8A%9F%E8%83%BD%E6%8B%93%E5%B1%95%E5%8F%8A%E5%9F%BA%E4%BA%8EVSCode%E7%9A%84IDE%E9%85%8D%E7%BD%AE/" target="_blank" title="Facebook">
             <i class="iconfont icon-facebooksquare"></i>
           </a>
         
