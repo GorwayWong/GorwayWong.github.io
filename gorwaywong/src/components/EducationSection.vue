@@ -50,7 +50,7 @@ const education = [
     major: "计算机技术",
     degree: "专硕",
     duration: "2025至今",
-    achievements: []
+    achievements: ["初复试总分排名第一"]
   }
 ]
 </script>
