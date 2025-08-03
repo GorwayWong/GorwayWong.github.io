@@ -3,20 +3,21 @@
   <div id="app">
     <ResumeSidebar />
     <main class="content">
-      <!-- 这里后续放简历主体内容 -->
+      <EducationSection />
+      <WorkSection />
     </main>
   </div>
 </template>
 
 <script>
-import ResumeSidebar from './components/ResumeSidebar.vue'
-
 export default {
-  name: 'App',
-  components: {
-    ResumeSidebar
-  }
+  name: 'App'
 }
+</script>
+<script setup>
+import ResumeSidebar from './components/ResumeSidebar.vue'
+import EducationSection from './components/EducationSection.vue';
+import WorkSection from './components/WorkSection.vue';
 </script>
 
 <style>
@@ -35,6 +36,6 @@ export default {
 .content {
   flex: 1;
   padding: 2rem;
-  margin-left: 220px; /* 与侧边栏宽度一致 */
+  margin-left: 400px; /* 与侧边栏宽度一致 */
 }
 </style>
