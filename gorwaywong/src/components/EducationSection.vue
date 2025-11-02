@@ -38,7 +38,7 @@ const education = [
     college: "信息与电气工程学院", // 新增：学院
     major: "计算机科学与技术",   // 专业
     degree: "工学学士",         // 新增：学位
-    duration: "2019~2023",     // 时间
+    duration: "2019.9~2023.6",     // 时间
     achievements: [
       "GPA: 3.51/4.0",
       "基于光谱分析的小麦光合参数预测系统，2024SR0101196，软件著作权登记"
@@ -49,8 +49,12 @@ const education = [
     college: "计算机与电子信息学院",
     major: "计算机技术",
     degree: "专硕",
-    duration: "2025至今",
-    achievements: ["初复试总分排名第一"]
+    duration: "2025.9至今",
+    achievements: [
+      "初复试总分排名第一",
+      "院研究生会学术部 部长；《编译原理》课程助教",
+      "获奖情况：2025年硕士研究生学业奖学金 一等"
+    ]
   }
 ]
 </script>
