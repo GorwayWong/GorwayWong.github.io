@@ -24,11 +24,31 @@
     
     <!-- 联系方式 -->
     <div class="contact-info">
-      <p v-for="(info, index) in contactInfo" 
+      <p v-for="(info, index) in contactInfo"
          :key="index"
          class="contact-item">
         <i :class="info.icon"></i> {{ info.text }}
       </p>
+    </div>
+
+    <!-- 主题切换按钮 -->
+    <div class="theme-toggle">
+      <button
+        class="theme-btn"
+        :class="{ active: !themeStore.isDark }"
+        @click="themeStore.setTheme('light')"
+        title="白天模式"
+      >
+        <i class="fas fa-sun"></i>
+      </button>
+      <button
+        class="theme-btn"
+        :class="{ active: themeStore.isDark }"
+        @click="themeStore.setTheme('dark')"
+        title="暗夜模式"
+      >
+        <i class="fas fa-moon"></i>
+      </button>
     </div>
     </div>
   </aside>
@@ -36,18 +56,22 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useThemeStore } from '@/stores/themeStore'
+
+// 获取主题 store
+const themeStore = useThemeStore()
 
 // 社交链接数据
 const socialLinks = ref([
   { name: 'GitHub', url: 'https://github.com/GorwayWong', icon: 'fab fa-github' },
   { name: 'CSDN', url: 'https://blog.csdn.net/weixin_48609829?spm=1011.2124.3001.5343', icon: 'fa-solid fa-blog' },
 //   { name: '领英', url: 'https://linkedin.com/in/yourusername', icon: 'fab fa-linkedin' },
-  { name: '邮箱', url: 'mailto:gorway_wong@163.com', icon: 'fas fa-envelope' }
+  { name: '邮箱', url: 'mailto:huangguoweiwork@163.com', icon: 'fas fa-envelope' }
 ])
 
 // 联系信息数据
 const contactInfo = ref([
-  { icon: 'fas fa-envelope', text: 'gorway_wong@163.com' },
+  { icon: 'fas fa-envelope', text: 'huangguoweiwork@163.com' },
   { icon: 'fa-solid fa-building-columns', text: '广西大学' },
   { icon: 'fas fa-map-marker-alt', text: '广西南宁' }
 ])
@@ -62,13 +86,14 @@ const contactInfo = ref([
   width: 400px;
   height: 100vh;
   padding: 2rem 1rem;
-  background-color: #2c3e50;
+  background-color: var(--sidebar-bg, #2c3e50);
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 1000;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
 }
 
 .avatar-container {
@@ -148,6 +173,41 @@ const contactInfo = ref([
   align-items: center;
   justify-content: center;
   padding: 2rem;
+}
+
+/* 主题切换按钮样式 */
+.theme-toggle {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-btn:hover {
+  border-color: #42b983;
+  color: #42b983;
+  transform: scale(1.1);
+}
+
+.theme-btn.active {
+  background: #42b983;
+  border-color: #42b983;
+  color: white;
+  box-shadow: 0 4px 12px rgba(66, 185, 131, 0.4);
 }
 
 </style>
