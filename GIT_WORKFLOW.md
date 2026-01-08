@@ -118,7 +118,7 @@ cp -r ./gorwaywong/dist/* .
 touch .nojekyll
 
 # 添加文件到 git
-git add assets/ favicon.ico index.html .nojekyll
+git add assets/ favicon.ico index.html .nojekyll address-card-solid-full.svg
 
 # 提交
 git commit -m "Deploy $(date +'%Y-%m-%d')"
