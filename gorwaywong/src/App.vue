@@ -158,6 +158,7 @@ onMounted(() => {
   --sidebar-bg: #2c3e50;
   --card-bg: #ffffff;
   --card-shadow: rgba(0, 0, 0, 0.1);
+  --toggle-btn-bg: #e8eaed;
 }
 
 /* 暗夜模式颜色 */
@@ -170,6 +171,7 @@ onMounted(() => {
   --sidebar-bg: #0f0f1a;
   --card-bg: #252540;
   --card-shadow: rgba(0, 0, 0, 0.3);
+  --toggle-btn-bg: #3a3a5a;
 }
 
 /* CSS Reset - 重置浏览器默认样式 */

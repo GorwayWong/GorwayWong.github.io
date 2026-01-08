@@ -9,8 +9,19 @@
 -->
 
 <template>
-  <div class="about-card" v-if="content">
-    <div class="card-content" v-html="renderedContent"></div>
+  <div class="about-card-wrapper" :class="{ collapsed: isCollapsed }" v-if="content">
+    <!-- 收起/展开按钮 -->
+    <button
+      class="toggle-btn"
+      @click="isCollapsed = !isCollapsed"
+      :title="isCollapsed ? '展开' : '收起'"
+    >
+      <span class="arrow" :class="{ collapsed: isCollapsed }">›</span>
+    </button>
+    <!-- 卡片主体 -->
+    <div class="about-card">
+      <div class="card-content" v-html="renderedContent"></div>
+    </div>
   </div>
 </template>
 
@@ -22,6 +33,9 @@ const { renderMarkdown } = useMarkdownParser()
 
 // 存储 Markdown 原始内容
 const content = ref('')
+
+// 控制卡片收起/展开状态
+const isCollapsed = ref(false)
 
 // 计算属性：渲染后的 HTML
 const renderedContent = computed(() => {
@@ -49,11 +63,62 @@ onMounted(async () => {
  * 2. 阴影颜色较浅，不会太突兀
  * 3. 阴影偏移较小，模糊半径较大
  */
-.about-card {
-  /* 定位：固定在右上角 */
+
+/* 包装容器 */
+.about-card-wrapper {
   position: fixed;
   top: 2rem;
   right: 2rem;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+/* 收起状态：整个容器向右移动，只露出按钮 */
+.about-card-wrapper.collapsed {
+  transform: translateX(calc(320px + 8px));
+}
+
+/* 收起/展开按钮 */
+.toggle-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: var(--toggle-btn-bg, #e8eaed);
+  box-shadow:
+    0 2px 4px var(--card-shadow, rgba(0, 0, 0, 0.1)),
+    0 4px 8px var(--card-shadow, rgba(0, 0, 0, 0.06));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn .arrow {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-secondary, #666);
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.toggle-btn .arrow.collapsed {
+  transform: rotate(180deg);
+}
+
+.about-card {
   width: 320px;
 
   /* 背景和圆角 */
@@ -70,10 +135,7 @@ onMounted(async () => {
   padding: 1.5rem;
 
   /* 过渡动画 */
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-
-  /* 确保在其他内容之上 */
-  z-index: 100;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, opacity 0.3s ease, width 0.3s ease;
 }
 
 /* 悬停效果：轻微上浮 */
