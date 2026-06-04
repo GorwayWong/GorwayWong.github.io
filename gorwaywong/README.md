@@ -1,29 +1,29 @@
-# gorwaywong
+# GorwayWong Blog Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 + Vite 静态博客前端。文章内容来自仓库根目录 `posts/*.md`，通过 Vite `import.meta.glob` 在构建期生成文章索引。
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Project setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Development
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+PowerShell 执行策略如果阻止 `npm.ps1`，使用：
 
 ```sh
-npm run build
+npm.cmd run dev
 ```
+
+## Build
+
+```sh
+npm.cmd run build
+```
+
+生产构建会输出到 `dist/`，再由仓库工作流复制到 `gh-pages` 分支。
