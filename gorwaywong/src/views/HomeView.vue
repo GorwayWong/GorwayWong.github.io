@@ -7,7 +7,7 @@
       <div class="hero-content">
         <p class="eyebrow">Welcome to</p>
         <h1>GorwayWong Blog</h1>
-        <p>我的技术相关随笔</p>
+        <p>我的技术相关随笔，记录后端、AI、深度学习与工程实践。</p>
       </div>
       <div class="status-bar">
         <span>{{ statusText }}</span>

@@ -42,7 +42,7 @@
             :title="isGroupCollapsed(group.name) ? '展开文章' : '收起文章'"
             @click="toggleGroup(group.name)"
           >
-            ▾
+            ▼
           </button>
         </div>
         <ul v-if="!isGroupCollapsed(group.name)">

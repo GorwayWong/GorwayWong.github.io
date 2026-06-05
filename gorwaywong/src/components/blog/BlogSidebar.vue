@@ -46,7 +46,7 @@
               title="Close about panel"
               @click="closePanel('about')"
             >
-              ×
+              x
             </button>
           </div>
         </div>
@@ -54,7 +54,7 @@
           <img src="@/assets/avatar.jpg" alt="GorwayWong avatar" class="avatar" />
           <div>
             <h2>GorwayWong</h2>
-            <p>前工控服务端开发工程师，Java 后端开发者，研一，记录工程与学习笔记。</p>
+            <p>工控服务端开发工程师，Java 后端开发者，研究生，记录工程与学习笔记。</p>
           </div>
         </div>
         <div class="social-row">
@@ -79,7 +79,7 @@
               title="Close tags panel"
               @click="closePanel('tags')"
             >
-              ×
+              x
             </button>
           </div>
         </div>
@@ -106,7 +106,7 @@
               title="Close latest panel"
               @click="closePanel('latest')"
             >
-              ×
+              x
             </button>
           </div>
         </div>

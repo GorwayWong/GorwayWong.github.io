@@ -15,13 +15,13 @@
               <h1>关于我</h1>
             </div>
           </div>
-          <p>2年工控服务端开发经历，学习web后端、AI、深度学习中，欢迎阅读我的博客！📒</p>
+          <p>2 年工控服务端开发经验，正在学习 Web 后端、AI 与深度学习，欢迎阅读我的博客。</p>
         </section>
 
         <section class="about-panel contact-panel">
           <p class="eyebrow">Contact</p>
           <h2>联系</h2>
-          <p>欢迎与我交流 🙋‍♂️</p>
+          <p>欢迎与我交流。</p>
           <div class="contact-list">
             <a href="mailto:huangguoweiwork@163.com">
               <i class="fas fa-envelope"></i>
