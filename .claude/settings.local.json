@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(where ace-tool *)",
+      "mcp__context7__query-docs",
+      "mcp__ace-tool__search_context",
+      "Bash(python3 *)",
+      "Read(//c/Users/13550/.claude/**)",
+      "Bash(bash -c 'timestamp=$\\(date +%Y%m%d_%H%M%S\\); for f in ../.claude.json settings.json .mcp.json; do base=$\\(basename \"$f\"\\); cp \"$f\" \"backups/${base}.backup.${timestamp}\"; echo \"Backed up: $f -> backups/${base}.backup.${timestamp}\"; done')"
+    ]
+  }
+}
